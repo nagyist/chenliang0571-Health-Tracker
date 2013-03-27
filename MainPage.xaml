@@ -1,0 +1,82 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="Health_Tracker.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--Pivot Control-->
+        <controls:Pivot x:Name="mainPivot" Title="Health Tracker" SelectionChanged="mainPivot_SelectionChanged">
+            <!--Pivot item one-->
+            <controls:PivotItem x:Name="PivotItem1" Header="tracking today">
+                <!--Double line list with text wrapping-->
+                <ListBox x:Name="FirstListBox" Margin="0,0,-12,0" ItemsSource="{Binding CurrentItems}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                          <StackPanel Margin="0,0,0,17" Width="432" Height="78">
+                                <TextBlock Text="{Binding ItemName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <TextBlock Text="{Binding StrTimestamp}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                          </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PivotItem>
+ 
+            <!--Pivot item two-->
+            <controls:PivotItem x:Name="PivotItem2"  Header="review"> 
+                <!--Triple line list no text wrapping-->
+                <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding PreviousItems}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,17">
+                                <TextBlock Text="{Binding ItemName}" Tag="{Binding CategoryId}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <TextBlock Text="{Binding StrTimestamp}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+            </controls:PivotItem>
+
+            <!--Pivot item three-->
+            <controls:PivotItem x:Name="PivotItem3" Header="category">
+                <!--Triple line list no text wrapping-->
+                <ListBox x:Name="ThirdListBox" Margin="0,0,-12,0" ItemsSource="{Binding CategoryItems}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,17">
+                                <TextBlock Text="{Binding CategoryName}" Tag="{Binding CategoryId}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PivotItem>
+            
+        </controls:Pivot>
+    </Grid>
+    
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar x:Name="appBar" IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="export2xml" IsEnabled="True" Text="export to xml"/>
+                <shell:ApplicationBarMenuItem x:Name="help" IsEnabled="True" Text="help"/>
+                <shell:ApplicationBarMenuItem x:Name="about" IsEnabled="True" Text="about"/>
+            </shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarIconButton 
+                IconUri="/Images/appbar.add.rest.png" 
+                Text="add" 
+                x:Name="newTaskAppBarButton" 
+                Click="newTaskAppBarButton_Click" IsEnabled="True"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>

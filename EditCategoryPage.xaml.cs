@@ -7,35 +7,29 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using Health_Tracker.Model;
 
 namespace Health_Tracker
 {
-    public partial class NewCategoryPage : PhoneApplicationPage
+    public partial class EditCategoryPage : PhoneApplicationPage
     {
-        public NewCategoryPage()
+        public EditCategoryPage()
         {
             InitializeComponent();
-
-            DataContext = App.ViewModel;
         }
 
-        private void appBarOkButton_Click(object sender, EventArgs e)
+        private void appBarSaveButton_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(this.newCategoryName.Text) || String.IsNullOrEmpty(this.newDisplayName.Text))
-            {
-                MessageBox.Show("Error: Category Name or Display Name is empty.");
-                return;
-            }
-            Categories newCategoary = new Categories
-            {
-                Name = this.newCategoryName.Text,
-                DisplayName = this.newDisplayName.Text,
-                IsActivity = true,
-                UpdateTime = DateTime.Now
-            };
-            App.ViewModel.AddCategory(newCategoary);
 
+
+            // Return to the main page.
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+        }
+
+        private void appBarDeleteButton_Click(object sender, EventArgs e)
+        {
             // Return to the main page.
             if (NavigationService.CanGoBack)
             {

@@ -127,7 +127,25 @@ namespace Health_Tracker.Model
                 if (value != _name)
                 {
                     _name = value;
-                    NotifyPropertyChanged("CategoryName");
+                    //NotifyPropertyChanged("CategoryName");
+                }
+            }
+        }
+
+
+        private string _diaplayname;
+        public string DisplayName
+        {
+            get
+            {
+                return _diaplayname;
+            }
+            set
+            {
+                if (value != _diaplayname)
+                {
+                    _diaplayname = value;
+                    NotifyPropertyChanged("DisplayName");
                 }
             }
         }

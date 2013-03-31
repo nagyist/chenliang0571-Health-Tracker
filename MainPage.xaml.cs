@@ -54,5 +54,31 @@ namespace Health_Tracker
                     break;
             }
         }
+
+        private void itemMenu1_Click(object sender, RoutedEventArgs e)
+        {
+            //item
+            MenuItem mi = (MenuItem)sender;
+            App.ViewModel.DeleteItem(Int32.Parse(mi.Tag + ""));
+        }
+
+        private void itemMenu2_Click(object sender, RoutedEventArgs e)
+        {
+            //item
+            MenuItem mi = (MenuItem)sender;
+            App.ViewModel.DeleteItem(Int32.Parse(mi.Tag + ""));
+        }
+
+        private void itemMenu3_Click(object sender, RoutedEventArgs e)
+        {
+            //category
+            MenuItem mi = (MenuItem)sender;
+            App.ViewModel.DeleteCategory(Int32.Parse(mi.Tag + ""));
+        }
+
+        //private void TextBlock_KeyUp_1(object sender, KeyEventArgs e)
+        //{
+        //    NavigationService.Navigate(new Uri("/EditCategoryPage.xaml", UriKind.Relative));
+        //}
     }
 }

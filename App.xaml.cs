@@ -88,13 +88,13 @@ namespace Health_Tracker
                     db.CreateDatabase();
 
                     // Prepopulate the categories.
-                    db.categories.InsertOnSubmit(new Categories { ID = 1, Name = "口腔溃疡", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
-                    db.categories.InsertOnSubmit(new Categories { ID = 2, Name = "鼻血", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
-                    db.categories.InsertOnSubmit(new Categories { ID = 3, Name = "痘痘", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
-                    db.categories.InsertOnSubmit(new Categories { ID = 4, Name = "poo", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
-                    db.categories.InsertOnSubmit(new Categories { ID = 5, Name = "早餐", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
-                    db.categories.InsertOnSubmit(new Categories { ID = 6, Name = "午餐", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
-                    db.categories.InsertOnSubmit(new Categories { ID = 7, Name = "晚餐", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
+                    db.categories.InsertOnSubmit(new Categories { ID = 1, Name = "口腔溃疡", DisplayName = "口腔溃疡", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
+                    db.categories.InsertOnSubmit(new Categories { ID = 2, Name = "鼻血", DisplayName = "鼻血", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
+                    db.categories.InsertOnSubmit(new Categories { ID = 3, Name = "痘痘", DisplayName = "痘痘", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
+                    db.categories.InsertOnSubmit(new Categories { ID = 4, Name = "排便", DisplayName = "poop", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
+                    db.categories.InsertOnSubmit(new Categories { ID = 5, Name = "早餐", DisplayName = "早餐", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
+                    db.categories.InsertOnSubmit(new Categories { ID = 6, Name = "午餐", DisplayName = "午餐", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
+                    db.categories.InsertOnSubmit(new Categories { ID = 7, Name = "晚餐", DisplayName = "晚餐", DescriptionIds = "", IsActivity = true, UpdateTime = DateTime.Now });
 
                     DateTime now = DateTime.Now;
                     DateTime current = new DateTime(now.Year, now.Month, now.Day);

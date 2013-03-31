@@ -42,27 +42,6 @@ namespace Health_Tracker
         public ObservableCollection<ItemBean> PreviousItems { get; private set; }
         public ObservableCollection<CategoryBean> CategoryItems { get; private set; }
 
-        //private string _sampleProperty = "Sample Runtime Property Value";
-        ///// <summary>
-        ///// Sample ViewModel property; this property is used in the view to display its value using a Binding
-        ///// </summary>
-        ///// <returns></returns>
-        //public string SampleProperty
-        //{
-        //    get
-        //    {
-        //        return _sampleProperty;
-        //    }
-        //    set
-        //    {
-        //        if (value != _sampleProperty)
-        //        {
-        //            _sampleProperty = value;
-        //            NotifyPropertyChanged("SampleProperty");
-        //        }
-        //    }
-        //}
-
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {
@@ -92,7 +71,7 @@ namespace Health_Tracker
             var varitems = from Items items in healthTrackerDB.items
                            join Categories categories in healthTrackerDB.categories on items.CategoryID equals categories.ID
                            where (items.IsActivity == true)
-                           select new { items.ID, items.CategoryID, categories.Name, items.StartTime, items.EndTime };
+                           select new { items.ID, items.CategoryID, categories.DisplayName, items.StartTime, items.EndTime };
             ItemBean ib = null;
             foreach (var item in varitems)
             {
@@ -100,7 +79,7 @@ namespace Health_Tracker
                 {
                     ID = item.ID,
                     CategoryId = item.CategoryID,
-                    ItemName = item.Name,
+                    ItemName = item.DisplayName,
                     StartTimestamp = item.StartTime,
                     EndTimestamp = item.EndTime
                 };
@@ -112,6 +91,8 @@ namespace Health_Tracker
                 {
                     ib.StrTimestamp = item.StartTime + " - " + item.EndTime;
                 }
+
+                //add to items
                 if (item.EndTime > current || item == null)
                 {
                     this.CurrentItems.Add(ib);
@@ -131,7 +112,7 @@ namespace Health_Tracker
                         select categories;
             foreach (var c in cates)
             {
-                this.CategoryItems.Add(new CategoryBean { ID = c.ID, CategoryName = c.Name });
+                this.CategoryItems.Add(new CategoryBean { ID = c.ID, CategoryName = c.Name, DisplayName = c.DisplayName });
             }
         }
 
@@ -142,15 +123,46 @@ namespace Health_Tracker
 
             //update UI
             this.CurrentItems.Add(
-                new ItemBean 
+                new ItemBean
                 {
-                    ItemName = categoryBean.CategoryName, 
-                    StartTimestamp = newItem.StartTime, 
-                    EndTimestamp = newItem.EndTime, 
-                    StrTimestamp = newItem.StartTime.ToLongDateString() 
+                    ID = newItem.ID,
+                    CategoryId = newItem.CategoryID,
+                    ItemName = categoryBean.DisplayName,
+                    StartTimestamp = newItem.StartTime,
+                    EndTimestamp = newItem.EndTime,
+                    StrTimestamp = newItem.StartTime.ToLongDateString()
                 }
             );
         }
+
+        public void DeleteItem(int itemId)
+        {
+            var item = from Items items in healthTrackerDB.items
+                         where (items.ID == itemId)
+                         select items;
+            foreach (Items i in item)
+            {
+                healthTrackerDB.items.DeleteOnSubmit(i);
+                healthTrackerDB.SubmitChanges();
+
+                //update UI
+                RemoveCurrentItem(itemId);
+                break;
+            }
+        }
+
+        private void RemoveCurrentItem(int itemId)
+        {
+            foreach (ItemBean i in this.CurrentItems)
+            {
+                if (itemId == i.ID)
+                {
+                    this.CurrentItems.Remove(i);
+                    break;
+                }
+            }
+        }
+
 
         public void AddCategory(Categories category)
         {
@@ -158,12 +170,30 @@ namespace Health_Tracker
             healthTrackerDB.SubmitChanges();
 
             //update UI
-            //this.CategoryItems.Add(
-            //    new CategoryBean
-            //    {
-            //        CategoryName = category.Name
-            //    }
-            //);
+            LoadCategories();
+        }
+
+        public void DeleteCategory(int categoryId)
+        {
+            var categoryQury = from Categories category in healthTrackerDB.categories
+                               where (category.ID == categoryId)
+                               select category;
+            foreach (Categories c in categoryQury)
+            {
+                healthTrackerDB.categories.DeleteOnSubmit(c);
+                healthTrackerDB.SubmitChanges();
+
+                //update UI
+                LoadCategories();
+                break;
+            }
+        }
+
+        public void UpdateCategory(Categories category)
+        {
+            healthTrackerDB.SubmitChanges();
+
+            //update UI
             LoadCategories();
         }
     }

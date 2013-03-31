@@ -98,6 +98,13 @@ namespace Health_Tracker.Model
         }
 
         [Column]
+        public string DisplayName
+        {
+            get;
+            set;
+        }
+
+        [Column]
         public string DescriptionIds
         {
             get;
@@ -178,6 +185,13 @@ namespace Health_Tracker.Model
 
         [Column]
         public string Name
+        {
+            get;
+            set;
+        }
+
+        [Column]
+        public int DescriptionType
         {
             get;
             set;

@@ -87,7 +87,7 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar x:Name="appBar" IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem x:Name="export2xml" IsEnabled="True" Text="export to xml"/>
+                <shell:ApplicationBarMenuItem x:Name="export2xml" IsEnabled="True" Text="export to xml" Click="export2xml_Click"/>
                 <shell:ApplicationBarMenuItem x:Name="help" IsEnabled="True" Text="help"/>
                 <shell:ApplicationBarMenuItem x:Name="about" IsEnabled="True" Text="about"/>
             </shell:ApplicationBar.MenuItems>

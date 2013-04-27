@@ -54,7 +54,7 @@ namespace Health_Tracker.Model
             get;
             set;
         }
-        [Column(CanBeNull = true)]
+        [Column(Storage = "_Comment", CanBeNull = true)]
         public string Comment
         {
             get;

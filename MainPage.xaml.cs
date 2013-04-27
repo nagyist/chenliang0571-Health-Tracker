@@ -76,6 +76,11 @@ namespace Health_Tracker
             App.ViewModel.DeleteCategory(Int32.Parse(mi.Tag + ""));
         }
 
+        private void export2xml_Click(object sender, EventArgs e)
+        {
+            App.ViewModel.Export2XML();
+        }
+
         //private void TextBlock_KeyUp_1(object sender, KeyEventArgs e)
         //{
         //    NavigationService.Navigate(new Uri("/EditCategoryPage.xaml", UriKind.Relative));

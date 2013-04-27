@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Health_Tracker.Model;
 using System.Linq;
+using Microsoft.Phone.Tasks;
+using System.Xml.Linq;
 
 
 namespace Health_Tracker
@@ -196,5 +198,17 @@ namespace Health_Tracker
             //update UI
             LoadCategories();
         }
+
+        public void Export2XML()
+        {
+            EmailComposeTask emailComposeTask = new EmailComposeTask();
+            DateTime now = DateTime.Now;
+            emailComposeTask.Subject = "Health Tracker Backup @ " + now.Year + "-" + now.Month + "-" + now.Day + " " + now.Hour + ":" + now.Minute + ":" + now.Second;
+            emailComposeTask.Body = Appbar.GenerateXML(healthTrackerDB);
+            emailComposeTask.Show();
+
+            //MessageBox.Show(GenerateXML());
+        }
+
     }
 }
